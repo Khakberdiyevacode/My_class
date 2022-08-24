@@ -1,0 +1,59 @@
+# 7.08.2022
+# lesson: dunder method
+class dunder():
+    def __init__(self,ism,familia,yosh):
+        self.ism = ism
+        self.familia = familia
+        self.yosh = yosh
+        self.obshi = []
+
+    def info(self):
+        return f"{self.ism} {self.familia}"
+
+    def add(self,talaba):
+        if isinstance(talaba,dunder):
+            self.obshi += talaba.ism,talaba.familia
+        else:
+            return "dunder classiga tegishli emas"
+
+    def bina(self):
+        return [x for x in self.obshi]
+
+    def __repr__(self):
+        return f"{self.ism} {self.familia}"
+
+    def __eq__(self,x):
+        """tenglik"""
+        return self.ism == x.ism
+
+    def __lt__(self,x):
+        """katta kichik"""
+        return self.yosh > x.yosh
+
+    def __le__(self,x):
+        """kichik yoki teng"""
+        return self.yosh >= x.yosh
+
+    def __len__(self):
+        return len(self.obshi)
+
+    def __getitem__(self, index):
+        return self.obshi[index]
+
+    def __setitem__(self,index,new):
+        if isinstance(new,dunder):
+            self.obshi[index]=new
+
+    def __add__(self,new):
+        if isinstance(new,dunder):
+            new_ism = f"{self.ism} { new.ism}"
+            return new_ism
+        else:
+            f"bu yega {type(new)} qoshib bolamydi"
+
+    def __call__(self,*parametr):
+        if parametr:
+            for x in parametr:
+                self.add(x)
+        else:
+            return [x for x in self.obshi]
